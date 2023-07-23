@@ -15,7 +15,6 @@ else version( linux ) {
 }
 else version( OSX ) {
 	import core.sys.darwin.dlfcn;
-	import std.array;
 	immutable string DEFAULT_LIBRARY_FILE_TYPE = ".dylib";
 }
 else {
