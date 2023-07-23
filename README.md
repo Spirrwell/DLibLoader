@@ -8,7 +8,8 @@ import std.typecons;
 import libloader;
 
 void main() {
-	library lib = library( "build/test" );
+	// You don't need to specify the extension .dll, .so, or .dylib, but you can
+	library lib = library( "path/to/library", ".dll" );
 	
 	if ( lib.isLoaded() ) {
 		if ( lib.callC!(void)( "MyCoolCFun" ) ) {
