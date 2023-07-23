@@ -35,7 +35,7 @@ struct library {
 
 	@disable this( const ref library );
 
-	public bool isLoaded() immutable {
+	public bool isLoaded() const {
 		return this.libraryHandle != null;
 	}
 
