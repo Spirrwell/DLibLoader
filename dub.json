@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"Spirrwell"
+	],
+	"copyright": "Copyright © 2023, Spirrwell",
+	"description": "D library that loads dynamic libraries on Windows, Linux, and macOS",
+	"license": "MIT",
+	"name": "dlibloader"
+}
