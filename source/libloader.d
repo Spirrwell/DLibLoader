@@ -4,6 +4,7 @@ module libloader;
 import core.runtime;
 import std.typecons;
 import std.traits;
+import core.demangle;
 
 version( Windows ) {
 	import core.sys.windows.winbase;
@@ -39,13 +40,15 @@ struct library {
 		return this.libraryHandle != null;
 	}
 
-	public T callD( T, Args... )( immutable string functionName, Args args ) {
-		alias FUNC = T function ( Args... );
-		return doCall!FUNC( functionName, args );
+	public auto callD( T, Args... )( immutable string functionName, Args args ) {
+		alias FUNC = T function ( Args );
+		immutable string mangledName = mangleFunc!FUNC( functionName ).idup;
+
+		return doCall!FUNC( mangledName, args );
 	}
 
 	public auto callC( T, Args... )( immutable string functionName, Args args ) {
-		alias FUNC = extern(C) T function ( Args... );
+		alias FUNC = extern(C) T function ( Args );
 		return doCall!FUNC( functionName, args );
 	}
 
