@@ -8,6 +8,7 @@ import core.demangle;
 
 version( Windows ) {
 	import core.sys.windows.winbase;
+	import std.windows.syserror;
 	immutable string DEFAULT_LIBRARY_FILE_TYPE = ".dll";
 }
 else version( linux ) {
@@ -35,6 +36,14 @@ struct library {
 	}
 
 	@disable this( const ref library );
+
+	public string getLastError() {
+		version ( Windows ) return sysErrorString( GetLastError() );
+		else {
+			import std.string : fromStringz;
+			return fromStringz( dlerror() ).idup;
+		}
+	}
 
 	public bool isLoaded() const {
 		return this.libraryHandle != null;
